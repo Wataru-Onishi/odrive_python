@@ -35,6 +35,7 @@ class MyController(Controller):
         if(abs(value) <1):
             value = 0
             odrv0.axis0.controller.input_vel = value
+
         else:
             value = transf(value)
             odrv0.axis0.controller.input_vel = value
@@ -44,6 +45,7 @@ class MyController(Controller):
         kill = 1
         odrv0.axis0.controller.input_vel = 0
         odrv0.axis0.requested_state = AXIS_STATE_IDLE
+        exit()
 
 
 controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
