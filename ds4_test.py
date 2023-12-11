@@ -19,7 +19,7 @@ class MyController(Controller):
         print(value)
             
     def on_R3_up(self, value):
-        value = transf1(value)
+        value = transf(value)
         print(value)
 
 controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
