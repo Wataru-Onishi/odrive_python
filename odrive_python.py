@@ -23,23 +23,22 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        if(abs(value) <1):
+        value = transf(value)
+        if(value <1):
             value = 0
             odrv0.axis0.controller.input_vel = 0
         else:
-            value = transf(value)
-        odrv0.axis0.controller.input_vel = value
-        print(value)
+            odrv0.axis0.controller.input_vel = value
+            print(value)
             
     def on_R3_up(self, value):
-        if(abs(value) <1):
+        value = transf(value)
+        if(value <1):
             value = 0
             odrv0.axis0.controller.input_vel = 0
-
         else:
-            value = transf(value)
             odrv0.axis0.controller.input_vel = value
-        print(value)
+            print(value)
     
     def on_R3_y_at_rest(self):
         odrv0.axis0.controller.input_vel =0
