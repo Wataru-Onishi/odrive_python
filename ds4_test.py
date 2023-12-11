@@ -4,12 +4,12 @@ from pyPS4Controller.controller import Controller
 
 
 def transf(raw):
-    temp = (raw+32767)/65534
+    temp = (raw)/65534
     # Filter values that are too weak for the motors to move
     return round(temp, 1)
 
 def transf1(raw):
-    temp = (abs(raw)+32767)/65534
+    temp = (abs(raw))/65534
     # Filter values that are too weak for the motors to move
 
     return round(temp, 1)
