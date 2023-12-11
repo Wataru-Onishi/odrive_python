@@ -1,5 +1,4 @@
 from __future__ import division
-import Adafruit_PCA9685
 from time import sleep
 from pyPS4Controller.controller import Controller
 
