@@ -55,6 +55,6 @@ class MyController(Controller):
         else:
             print(value)
 
-    def on_x_press(self):
 
-    def on_x_release(self):
+controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
+controller.listen()
