@@ -23,7 +23,7 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        if(abs(value) <1.5):
+        if(abs(value) <1):
             value = 0
             odrv0.axis0.controller.input_vel = 0
         else:
@@ -32,7 +32,7 @@ class MyController(Controller):
         print(value)
             
     def on_R3_up(self, value):
-        if(abs(value) <1.5):
+        if(abs(value) <1):
             value = 0
             odrv0.axis0.controller.input_vel = 0
 
@@ -41,8 +41,11 @@ class MyController(Controller):
             odrv0.axis0.controller.input_vel = value
         print(value)
     
+    def on_R3_y_at_rest(self):
+        odrv0.axis0.controller.input_vel =0
+
+    
     def on_x_press(self):
-        kill = 1
         odrv0.axis0.controller.input_vel = 0
         odrv0.axis0.requested_state = AXIS_STATE_IDLE
         exit()
