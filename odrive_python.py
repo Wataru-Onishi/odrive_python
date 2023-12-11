@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-from time import sleep
+import time
 from pyPS4Controller.controller import Controller
 
 import odrive
@@ -11,16 +11,9 @@ odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
 odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-odrv0.axis0.controller.input_vel = 2
-
-time.sleep(5)
-odrv0.axis0.controller.input_vel = 0
-odrv0.axis0.requested_state = AXIS_STATE_IDLE
-
-odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
 
 
-while(True)
+while(True):
     def transf(raw):
         temp = raw/65534 * 5
         return round(temp, 1)
@@ -39,8 +32,6 @@ while(True)
             value = transf(value)
             odrv0.axis0.controller.input_vel = value
             print(value)
-
-    
-
-
-odrv0.axis0.requested_state = AXIS_STATE_IDLE
+        
+        def on_x_puless(self):
+            kill = 1
