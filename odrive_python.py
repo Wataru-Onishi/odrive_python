@@ -14,7 +14,7 @@ odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
 
 
 def transf(raw):
-    temp = raw/65534 * 5
+    temp = raw/65534 * 8
     return round(temp, 1)
 
 class MyController(Controller):
@@ -23,7 +23,7 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        if(abs(value) <0.8):
+        if(abs(value) <1):
             value = 0
             odrv0.axis0.controller.input_vel = value
         else:
@@ -32,7 +32,7 @@ class MyController(Controller):
         print(value)
             
     def on_R3_up(self, value):
-        if(abs(value) <0.8):
+        if(abs(value) <1):
             value = 0
             odrv0.axis0.controller.input_vel = value
         else:
