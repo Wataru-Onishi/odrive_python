@@ -24,17 +24,23 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        value = transf(value)
-        odrv0.axis0.controller.input_vel = value
+        if(abs(value) <0.5):
+            value = 0
+        else:
+            value = transf(value)
         print(value)
             
     def on_R3_up(self, value):
-        value = transf(value)
-        odrv0.axis0.controller.input_vel = value
+        if(abs(value) <0.5):
+            value = 0
+        else:
+            value = transf(value)
         print(value)
     
     def on_x_puless(self):
         kill = 1
+        odrv0.axis0.requested_state = AXIS_STATE_IDLE
+
 
 controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
 controller.listen()
