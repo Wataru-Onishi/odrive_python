@@ -15,12 +15,18 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        value = transf(value)
+        if(abs(value) <0.5):
+            value = 0
+        else:
+            value = transf(value)
         print(value)
             
     def on_R3_up(self, value):
-        value = transf(value)
+        if(abs(value) <0.5):
+            value = 0
+        else:
+            value = transf(value)
         print(value)
-
+        
 controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
 controller.listen()
