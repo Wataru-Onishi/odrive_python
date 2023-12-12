@@ -10,7 +10,6 @@ from odrive.enums import *
 odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
-odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
 
 
 def transf(raw):
@@ -43,6 +42,8 @@ class MyController(Controller):
     def on_R3_y_at_rest(self):
         odrv0.axis0.controller.input_vel =0
 
+    def on_circle_press(self):
+        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     
     def on_x_press(self):
         odrv0.axis0.controller.input_vel = 0
