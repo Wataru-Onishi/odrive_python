@@ -11,6 +11,7 @@ odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
 
+odrv0.axis0.requested_state = AXIS_STATE_IDLE
 
 def transf(raw):
     temp = raw/65534 * 8
@@ -22,22 +23,24 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
-        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         value = transf(value)
         if(abs(value) <1):
+            odrv0.axis0.requested_state = AXIS_STATE_IDLE
             value = 0
             odrv0.axis0.controller.input_vel = 0
         else:
+            odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
             odrv0.axis0.controller.input_vel = value
             print(value)
             
     def on_R3_up(self, value):
-        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         value = transf(value)
         if(abs(value) <1):
+            odrv0.axis0.requested_state = AXIS_STATE_IDLE
             value = 0
             odrv0.axis0.controller.input_vel = 0
         else:
+            odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
             odrv0.axis0.controller.input_vel = value
             print(value)
     
