@@ -22,6 +22,7 @@ class MyController(Controller):
         Controller.__init__(self, **kwargs)
     
     def on_R3_down(self, value):
+        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         value = transf(value)
         if(abs(value) <1):
             value = 0
@@ -31,6 +32,7 @@ class MyController(Controller):
             print(value)
             
     def on_R3_up(self, value):
+        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         value = transf(value)
         if(abs(value) <1):
             value = 0
@@ -42,8 +44,8 @@ class MyController(Controller):
     def on_R3_y_at_rest(self):
         odrv0.axis0.controller.input_vel =0
 
-    def on_circle_press(self):
-        odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+    # def on_circle_press(self):
+    #     odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     
     def on_x_press(self):
         odrv0.axis0.controller.input_vel = 0
