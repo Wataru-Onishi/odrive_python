@@ -10,10 +10,14 @@ odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
 def transf(raw):
-    temp = raw/65534 * 2*2
+    temp = raw/65534 * 2 * 4
     return round(temp, 1)
 
 class MyController(Controller):
+
+    odrv0.axis0.motor.config.torque_constant = 0.04
+    odrv0.axis.controller.config.control_mode = CONTROL_MODE_TORQUE_CONTROL
+    odrv0.axis.controller.config.vel_limit = 20000 
 
     def __init__(self, **kwargs):
         Controller.__init__(self, **kwargs)
