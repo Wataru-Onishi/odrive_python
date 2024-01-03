@@ -15,7 +15,7 @@ def transf(raw):
 
 class MyController(Controller):
 
-    odrv0.axis0.motor.config.torque_constant = 0.04
+
     odrv0.axis.controller.config.control_mode = CONTROL_MODE_TORQUE_CONTROL
     odrv0.axis.controller.config.vel_limit = 20000 
 
