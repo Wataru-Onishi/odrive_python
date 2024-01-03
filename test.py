@@ -10,7 +10,7 @@ odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
 def transf(raw):
-    temp = raw/65534 * 2
+    temp = raw/65534 * 2*2
     return round(temp, 1)
 
 class MyController(Controller):
