@@ -13,7 +13,7 @@ print(str(odrv0.vbus_voltage))
 
 
 def transf(raw):
-    temp = raw/65534 * 2 * 4
+    temp = raw/65534 * 2 * 10
     return round(temp, 1)
 
 class MyController(Controller):
