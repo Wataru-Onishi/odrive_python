@@ -10,10 +10,9 @@ from odrive.enums import *
 odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
-
+speed = 15
 
 def transf(raw):
-    speed = 15
     temp = raw/65534 * 2 * speed
     return round(temp, 1)
 
@@ -49,7 +48,7 @@ class MyController(Controller):
     def on_x_press(self):
         odrv0.axis0.controller.input_vel = 0
         odrv0.axis0.requested_state = AXIS_STATE_IDLE
-        exit()
+        exit()  
 
 
 controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False)
