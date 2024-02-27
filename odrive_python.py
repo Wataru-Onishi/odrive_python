@@ -10,11 +10,22 @@ from odrive.enums import *
 odrv0 = odrive.find_any()
 print(str(odrv0.vbus_voltage))
 
-speed = 15
+windows_size = 15
+speed = [0] * windows_size
+speed_param = 15
+
+def mov_ave(new_val):
+    speed.pop(0)
+    speed.append(new_val)
+
+    if not speed:  # 配列が空の場合
+        return 0
+    return sum(speed) / len(speed)  # 合計値を要素数で割って平均を求める
 
 def transf(raw):
-    temp = raw/65534 * 2 * speed
-    return round(temp, 1)
+    speed = raw/65534 * 2 * speed_param
+    
+    return round(mov_ave(speed), 1)
 
 class MyController(Controller):
 
@@ -38,6 +49,10 @@ class MyController(Controller):
         else:
             odrv0.axis0.controller.input_vel = value
             print(value)
+
+    def on_R2_press(self):
+        for i in range(len(speed)):
+            speed[i] = 0
     
     def on_R3_y_at_rest(self):
         odrv0.axis0.controller.input_vel =0
