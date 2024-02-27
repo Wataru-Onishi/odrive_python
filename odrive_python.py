@@ -24,8 +24,9 @@ def mov_ave(new_val):
 
 def transf(raw):
     speed = raw/65534 * 2 * speed_param
-    
-    return round(mov_ave(speed), 1)
+    speed = round(mov_ave(speed), 1)
+    print(speed)
+    return speed
 
 class MyController(Controller):
 
@@ -39,7 +40,7 @@ class MyController(Controller):
             odrv0.axis0.controller.input_vel = 0
         else:
             odrv0.axis0.controller.input_vel = value
-            print(value)
+            #print(value)
             
     def on_R3_up(self, value):
         value = transf(value)
@@ -48,11 +49,11 @@ class MyController(Controller):
             odrv0.axis0.controller.input_vel = 0
         else:
             odrv0.axis0.controller.input_vel = value
-            print(value)
+            #print(value)
 
-    def on_R2_press(self):
-        for i in range(len(speed)):
-            speed[i] = 0
+    #def on_R2_press(self):
+    #    for i in range(len(speed)):
+    #        speed[i] = 0
     
     def on_R3_y_at_rest(self):
         odrv0.axis0.controller.input_vel =0
